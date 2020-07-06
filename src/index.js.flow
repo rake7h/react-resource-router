@@ -158,6 +158,7 @@ type PrivateRouterActions = {|
   bootstrapStore: (initialState: ContainerProps) => RouterAction,
   requestRouteResources: () => RouterAction,
   listen: () => RouterAction,
+  getContext: () => RouterAction,
 |};
 
 type Href = string;

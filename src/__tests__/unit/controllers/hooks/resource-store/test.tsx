@@ -110,13 +110,11 @@ describe('useResource hook', () => {
       </MockComponent>
     );
 
-    expect(spy).toHaveBeenCalledWith([
-      {
-        ...mockSlice,
-        update: expect.any(Function),
-        refresh: expect.any(Function),
-      },
-    ]);
+    expect(spy).toHaveBeenCalledWith({
+      ...mockSlice,
+      update: expect.any(Function),
+      refresh: expect.any(Function),
+    });
   });
 
   describe('update action', () => {
@@ -126,7 +124,7 @@ describe('useResource hook', () => {
       mount(
         <MockComponent>
           {() => {
-            const [resource] = useResource(mockResource);
+            const resource = useResource(mockResource);
             resourceResponse = resource;
 
             return <h1>my test</h1>;
@@ -151,7 +149,7 @@ describe('useResource hook', () => {
       mount(
         <MockComponent>
           {() => {
-            const [resource] = useResource(mockResource);
+            const resource = useResource(mockResource);
             resourceResponse = resource;
 
             return <h1>my test</h1>;
@@ -178,7 +176,7 @@ describe('useResource hook', () => {
       mount(
         <MockComponent>
           {() => {
-            const [resource] = useResource(mockResource);
+            const resource = useResource(mockResource);
             resourceResponse = resource;
 
             return <h1>my test</h1>;
@@ -202,7 +200,7 @@ describe('useResource hook', () => {
       mount(
         <MockComponent>
           {() => {
-            const [resource] = useResource(mockResource);
+            const resource = useResource(mockResource);
             resourceResponse = resource;
 
             return <h1>my test</h1>;

@@ -587,7 +587,7 @@ describe('resource store', () => {
       actions.getResource(mockResourceWithLongRequest, mockRouterStoreContext);
 
       const Component = () => {
-        const [{ data, loading }] = useResource(mockResource);
+        const { data, loading } = useResource(mockResource);
 
         if (loading) {
           return <div id="loading" />;
@@ -665,7 +665,7 @@ describe('resource store', () => {
       });
 
       const Component = () => {
-        const [{ data, loading }] = useResource(mockResource);
+        const { data, loading } = useResource(mockResource);
 
         if (loading) {
           return <div id="loading" />;

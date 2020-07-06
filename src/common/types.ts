@@ -107,7 +107,6 @@ export type RouterStoreContext = {
   route: Route;
   match: Match;
   query: Query;
-  location: Location;
 };
 
 export type Route = {

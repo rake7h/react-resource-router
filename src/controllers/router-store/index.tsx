@@ -89,13 +89,12 @@ const actions: AllRouterActions = {
    *
    */
   requestRouteResources: () => ({ getState }) => {
-    const { route, match, query, location } = getState();
+    const { route, match, query } = getState();
 
     return getResourceStore().actions.requestAllResources({
       route,
       match,
       query,
-      location,
     });
   },
 
@@ -113,7 +112,6 @@ const actions: AllRouterActions = {
         match: currentMatch,
         route: currentRoute,
         query: currentQuery,
-        location: currentLocation,
       } = getState();
 
       const {
@@ -127,14 +125,12 @@ const actions: AllRouterActions = {
         route: nextContext.route,
         match: nextContext.match,
         query: nextContext.query,
-        location,
       };
       const nextResources = getResourcesForNextLocation(
         {
           route: currentRoute,
           match: currentMatch,
           query: currentQuery,
-          location: currentLocation,
         },
         nextLocationContext,
         getResourceStoreContext()
@@ -198,6 +194,12 @@ const actions: AllRouterActions = {
     const { history } = getState();
 
     return history.block(blocker);
+  },
+
+  getContext: () => ({ getState }) => {
+    const { location, query, route, match } = getState();
+
+    return { location, query, route, match };
   },
 };
 
