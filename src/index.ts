@@ -19,7 +19,7 @@ export {
   matchRoute,
   generatePath,
   createLegacyHistory,
-  getRouteContext,
+  createRouterContext,
 } from './common/utils';
 
 export type {
