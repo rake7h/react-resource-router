@@ -13,7 +13,7 @@ import {
   DEFAULT_MATCH,
   DEFAULT_ROUTE,
 } from '../../common/constants';
-import { getRouteContext, isServerEnvironment } from '../../common/utils';
+import { findRouterContext, isServerEnvironment } from '../../common/utils';
 import { getResourceStore } from '../resource-store';
 import { getResourcesForNextLocation } from '../resource-store/utils';
 
@@ -46,13 +46,13 @@ const actions: AllRouterActions = {
   bootstrapStore: props => ({ setState, dispatch }) => {
     const { resourceContext, resourceData, ...initialProps } = props;
     const { history, routes, isStatic } = initialProps;
-    const routeContext = getRouteContext(history.location, routes);
+    const routerContext = findRouterContext(routes, history.location);
 
     setState({
       ...initialProps,
-      ...routeContext,
-      route: routeContext.route,
-      match: routeContext.match,
+      ...routerContext,
+      location: history.location,
+      action: history.action,
     });
     getResourceStore().actions.hydrate({ resourceContext, resourceData });
 
@@ -68,13 +68,13 @@ const actions: AllRouterActions = {
   bootstrapStoreUniversal: props => ({ setState, dispatch }) => {
     const { resourceContext, resourceData, ...initialProps } = props;
     const { history, routes } = initialProps;
-    const routeContext = getRouteContext(history.location, routes);
+    const routerContext = findRouterContext(routes, history.location);
 
     setState({
       ...initialProps,
-      ...routeContext,
-      route: routeContext.route,
-      match: routeContext.match,
+      ...routerContext,
+      location: history.location,
+      action: history.action,
     });
     getResourceStore().actions.hydrate({ resourceContext, resourceData });
 
@@ -107,7 +107,7 @@ const actions: AllRouterActions = {
     const { history, routes } = getState();
 
     const stopListening = history.listen(async (location, action) => {
-      const nextContext = getRouteContext(location, routes);
+      const nextContext = findRouterContext(routes, location);
       const {
         match: currentMatch,
         route: currentRoute,
@@ -145,8 +145,7 @@ const actions: AllRouterActions = {
         cleanExpiredResources(nextResources, nextLocationContext);
         setState({
           ...nextContext,
-          route: nextContext.route,
-          match: nextContext.match,
+          location,
           action,
         });
         requestResources(nextResources, nextLocationContext);

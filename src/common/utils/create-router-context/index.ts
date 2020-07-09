@@ -5,8 +5,8 @@ import generatePath from '../generate-path';
 
 export const createRouterContext = (
   route: Route,
-  params: MatchParams,
-  query: Query
+  params: MatchParams = {},
+  query: Query = {}
 ) => {
   const pathname = generatePath(route.path, params);
   const matchedRoute = matchRoute([route], pathname, query);

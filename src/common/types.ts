@@ -16,7 +16,7 @@ export type Location = {
 
 export type BrowserHistory = Omit<
   History,
-  'location' | 'action' | 'go' | 'createHref' | 'push' | 'replace'
+  'location' | 'go' | 'createHref' | 'push' | 'replace'
 > & {
   location: Location;
   push: (path: string) => void;
